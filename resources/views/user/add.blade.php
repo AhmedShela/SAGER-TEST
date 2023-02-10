@@ -4,6 +4,15 @@
 <div class="card">
     <div class="card-header">
         <h4>Add User</h4>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
     </div>
     <div class="card-body">
         <form id="addUserForm" action="{{ url('insert-user') }}" method="post">
@@ -20,7 +29,6 @@
                 <div class="col-md-6">
                     <label for="password">Password</label>
                     <input class="form-control" type="text" name="password" id="password" required>
-                    <p id="message" style="color: red;font-size: 14px;"></p>
                 </div>
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -29,18 +37,4 @@
         </form>
     </div>
 </div>
-
-<script>
-    function checkPassword(str) {
-        var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-        return re.test(str);
-    }
-    document.getElementById("addUserForm").addEventListener('submit',function (e) {
-        if(checkPassword(document.getElementById("password").value) == false){
-            document.getElementById("message").innerHTML = "password must be 8 characters and contains number 1-9 and A-Z litters"
-            e.preventDefault();
-            return false
-        }
-    })
-</script>
 @endsection

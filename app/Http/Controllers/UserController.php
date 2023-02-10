@@ -27,19 +27,15 @@ class UserController extends Controller
 
     public function insert(Request $req)
     {
-        // $req->validate([
-        //     'password' => [
-        //         'required',
-        //         'min:8',
-        //         'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
-        //         'confirmed',
-        //     ],
-        // ]);
-        logger('------->>:');
-        logger(count(User::where('email', $req->email)->get()));
-        if (count(User::where('email', $req->email)->get()) > 0) {
-            return redirect('add-user')->with('status', 'Unique Email is required');
-        }
+        $req->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => [
+                'required',
+                'min:8',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/',
+            ],
+        ]);
         $user = new User();
         $user->name = $req->name;
         $user->email = $req->email;
@@ -50,6 +46,16 @@ class UserController extends Controller
 
     public function update(Request $req, $id)
     {
+        $req->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => [
+                'required',
+                'min:8',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/',
+            ],
+        ]);
+
         $user = User::find($id);
         $user->name = $req->name;
         $user->email = $req->email;

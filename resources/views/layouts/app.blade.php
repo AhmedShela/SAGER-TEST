@@ -28,7 +28,7 @@
 <body>
     <div id="app">
         <div class="sidenav">
-            <a href="{{ url('/') }}">Dashboard</a>
+            <a href="{{ url('/home') }}">Dashboard</a>
             <a href="{{ url('/categories') }}">Categories</a>
             <a href="{{ url('/products') }}">Products</a>
             <a href="{{ url('/users') }}">Users</a>

@@ -15,6 +15,9 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+
+                    <a class="btn btn-primary" href="{{ url('create-demo') }}">Create Demo Data</a>
+                    <a class="btn btn-danger" href="{{ url('clear-data') }}">Clear Demo Data</a>
                 </div>
             </div>
         </div>

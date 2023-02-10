@@ -4,6 +4,15 @@
 <div class="card">
     <div class="card-header">
         <h4>Edit User</h4>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
     </div>
     <div class="card-body">
         <form id="addUserForm" action="{{ url('update-user/'.$user->id) }}" method="post">
@@ -30,18 +39,4 @@
         </form>
     </div>
 </div>
-
-<script>
-    function checkPassword(str) {
-        var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-        return re.test(str);
-    }
-    document.getElementById("addUserForm").addEventListener('submit',function (e) {
-        if(checkPassword(document.getElementById("password").value) == false){
-            document.getElementById("message").innerHTML = "password must be 8 characters and contains number 1-9 and A-Z litters"
-            e.preventDefault();
-            return false
-        }
-    })
-</script>
 @endsection

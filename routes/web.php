@@ -22,7 +22,9 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     //After Login the routes are accept by the loginUsers...
 
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('create-demo', [App\Http\Controllers\HomeController::class, 'create_demo_data']);
+    Route::get('clear-data', [App\Http\Controllers\HomeController::class, 'clear_data']);
     // Categories
     Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index']);
     Route::get('add-category', 'App\Http\Controllers\CategoryController@add');
